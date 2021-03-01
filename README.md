@@ -1,7 +1,6 @@
-# [Datastream API (DSWS) Median Index Data](https://developers.refinitiv.com/en/article-catalog/article/dsws-median-index-data)
+# Datastream API (DSWS) Median Index Data
 
 [This article comes from the Developer Community Portal, where you may find more such articles.](https://developers.refinitiv.com/en/article-catalog/article/dsws-median-index-data)
-
 
 In this article, we will create a Python function that will take the median measure of all (non 'NaN') values of a specific field for any index (or list of indices) of choice using Refinitiv's [DataStream](https://www.refinitiv.com/en/products/datastream-macroeconomic-analysis) Web Services (DSWS).
 
@@ -554,14 +553,16 @@ def DSWS_Median_Index_Data(indices = ["MSWRLD"],
 
 #### Example setting 'track_progress' and 'add_to_global_DF' to True: <a class="anchor" id="Exampletrack_progresandadd_to_global_DFtoTrue"></a>
 
+Note that - in this example - we made sure to normalize all currency-denominated values to the same currency (USD), otherwise taking the median value of different currencies wouldn't make much sense.
+
 
 ```python
 DF, _DF, debug_df = [], [], []
 
 test1, test1_df, test1_deb_df = DSWS_Median_Index_Data(
     indices = ["MSWRLD", "S&PCOMP"],
-    list_of_fields = ['EVT1FD12', 'EBT1FD12', 'EBD1FD12', 'X(CPS1FD12)*X(IBNOSH)',
-                      'X(MV)~IBCUR', 'PEFD12', 'SAL1FD12', 'X(BPS1FD12)*X(IBNOSH)'],
+    list_of_fields = ['X(EVT1FD12)~USD', 'X(EBT1FD12)~USD', 'X(EBD1FD12)~USD', 'X(CPS1FD12)~USD*X(IBNOSH)',
+                      'X(MV)~USD', 'X(PEFD12)', 'X(SAL1FD12)~USD', 'X(BPS1FD12)~USD*X(IBNOSH)'],
     start = '2013-01-01',
     end = '2013-03-01',
     track_progress = True,
@@ -659,35 +660,35 @@ test1[0]
     <tr>
       <th>43447</th>
       <td>MS:65552</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>6266.1</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43448</th>
       <td>MS:3695</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>2393.96</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>3074.03</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43449</th>
       <td>MS:3698</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>34543.6</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43450</th>
       <td>MS:4502</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>318569</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>4837.31</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43451</th>
       <td>MS:2138</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>20133.9</td>
       <td>2013-03-31</td>
     </tr>
@@ -728,49 +729,129 @@ test1_df[0]
     </tr>
     <tr>
       <th>Metrics</th>
-      <th>EVT1FD12</th>
-      <th>EBT1FD12</th>
-      <th>EBD1FD12</th>
-      <th>X(CPS1FD12)*X(IBNOSH)</th>
-      <th>X(MV)~IBCUR</th>
-      <th>PEFD12</th>
-      <th>SAL1FD12</th>
-      <th>X(BPS1FD12)*X(IBNOSH)</th>
+      <th>X(EVT1FD12)~USD</th>
+      <th>X(EBT1FD12)~USD</th>
+      <th>X(EBD1FD12)~USD</th>
+      <th>X(CPS1FD12)~USD*X(IBNOSH)</th>
+      <th>X(MV)~USD</th>
+      <th>X(PEFD12)</th>
+      <th>X(SAL1FD12)~USD</th>
+      <th>X(BPS1FD12)~USD*X(IBNOSH)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>2013-01-31</th>
-      <td>10288.255</td>
-      <td>1185.797</td>
-      <td>1289.254</td>
-      <td>2111.4290</td>
-      <td>18004.77</td>
-      <td>13.9320</td>
-      <td>6320.166</td>
-      <td>10148.4175</td>
+      <td>9768.0295</td>
+      <td>1008.731</td>
+      <td>1159.4745</td>
+      <td>1033.7630</td>
+      <td>9083.045</td>
+      <td>13.9340</td>
+      <td>5136.3315</td>
+      <td>5321.7885</td>
     </tr>
     <tr>
       <th>2013-02-28</th>
-      <td>10491.230</td>
-      <td>1177.110</td>
-      <td>1298.688</td>
-      <td>2157.2485</td>
-      <td>17937.32</td>
-      <td>14.3195</td>
-      <td>6363.936</td>
-      <td>10129.8040</td>
+      <td>9748.7150</td>
+      <td>993.057</td>
+      <td>1166.6150</td>
+      <td>1045.0710</td>
+      <td>9107.255</td>
+      <td>14.3305</td>
+      <td>5113.3065</td>
+      <td>5254.4770</td>
     </tr>
     <tr>
       <th>2013-03-31</th>
-      <td>10676.970</td>
-      <td>1176.604</td>
-      <td>1304.888</td>
-      <td>2173.3200</td>
-      <td>18262.05</td>
-      <td>14.8040</td>
-      <td>6342.463</td>
-      <td>10113.0805</td>
+      <td>9876.2530</td>
+      <td>1000.378</td>
+      <td>1151.1720</td>
+      <td>1037.7785</td>
+      <td>9345.155</td>
+      <td>14.8205</td>
+      <td>5117.3000</td>
+      <td>5243.3455</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+test1_df[1]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th colspan="8" halign="left">S&amp;PCOMP</th>
+    </tr>
+    <tr>
+      <th>Metrics</th>
+      <th>X(EVT1FD12)~USD</th>
+      <th>X(EBT1FD12)~USD</th>
+      <th>X(EBD1FD12)~USD</th>
+      <th>X(CPS1FD12)~USD*X(IBNOSH)</th>
+      <th>X(MV)~USD</th>
+      <th>X(PEFD12)</th>
+      <th>X(SAL1FD12)~USD</th>
+      <th>X(BPS1FD12)~USD*X(IBNOSH)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013-01-31</th>
+      <td>14746.49</td>
+      <td>1403.990</td>
+      <td>1956.5220</td>
+      <td>1353.3355</td>
+      <td>13275.135</td>
+      <td>14.0380</td>
+      <td>9011.652</td>
+      <td>5988.997</td>
+    </tr>
+    <tr>
+      <th>2013-02-28</th>
+      <td>15450.20</td>
+      <td>1404.525</td>
+      <td>1910.5655</td>
+      <td>1371.0870</td>
+      <td>13112.900</td>
+      <td>14.4570</td>
+      <td>9073.121</td>
+      <td>5870.180</td>
+    </tr>
+    <tr>
+      <th>2013-03-31</th>
+      <td>15799.75</td>
+      <td>1411.040</td>
+      <td>1921.3090</td>
+      <td>1368.2955</td>
+      <td>13821.085</td>
+      <td>14.8685</td>
+      <td>9089.930</td>
+      <td>5936.011</td>
     </tr>
   </tbody>
 </table>
@@ -856,35 +937,35 @@ test1_deb_df[0]
     <tr>
       <th>43447</th>
       <td>MS:65552</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>6266.1</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43448</th>
       <td>MS:3695</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>2393.96</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>3074.03</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43449</th>
       <td>MS:3698</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>34543.6</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43450</th>
       <td>MS:4502</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>318569</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>4837.31</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43451</th>
       <td>MS:2138</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>20133.9</td>
       <td>2013-03-31</td>
     </tr>
@@ -973,35 +1054,35 @@ DF[0]
     <tr>
       <th>43447</th>
       <td>MS:65552</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>6266.1</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43448</th>
       <td>MS:3695</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>2393.96</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>3074.03</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43449</th>
       <td>MS:3698</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>34543.6</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43450</th>
       <td>MS:4502</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>318569</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>4837.31</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43451</th>
       <td>MS:2138</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>20133.9</td>
       <td>2013-03-31</td>
     </tr>
@@ -1042,49 +1123,49 @@ _DF[0]
     </tr>
     <tr>
       <th>Metrics</th>
-      <th>EVT1FD12</th>
-      <th>EBT1FD12</th>
-      <th>EBD1FD12</th>
-      <th>X(CPS1FD12)*X(IBNOSH)</th>
-      <th>X(MV)~IBCUR</th>
-      <th>PEFD12</th>
-      <th>SAL1FD12</th>
-      <th>X(BPS1FD12)*X(IBNOSH)</th>
+      <th>X(EVT1FD12)~USD</th>
+      <th>X(EBT1FD12)~USD</th>
+      <th>X(EBD1FD12)~USD</th>
+      <th>X(CPS1FD12)~USD*X(IBNOSH)</th>
+      <th>X(MV)~USD</th>
+      <th>X(PEFD12)</th>
+      <th>X(SAL1FD12)~USD</th>
+      <th>X(BPS1FD12)~USD*X(IBNOSH)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>2013-01-31</th>
-      <td>10288.255</td>
-      <td>1185.797</td>
-      <td>1289.254</td>
-      <td>2111.4290</td>
-      <td>18004.77</td>
-      <td>13.9320</td>
-      <td>6320.166</td>
-      <td>10148.4175</td>
+      <td>9768.0295</td>
+      <td>1008.731</td>
+      <td>1159.4745</td>
+      <td>1033.7630</td>
+      <td>9083.045</td>
+      <td>13.9340</td>
+      <td>5136.3315</td>
+      <td>5321.7885</td>
     </tr>
     <tr>
       <th>2013-02-28</th>
-      <td>10491.230</td>
-      <td>1177.110</td>
-      <td>1298.688</td>
-      <td>2157.2485</td>
-      <td>17937.32</td>
-      <td>14.3195</td>
-      <td>6363.936</td>
-      <td>10129.8040</td>
+      <td>9748.7150</td>
+      <td>993.057</td>
+      <td>1166.6150</td>
+      <td>1045.0710</td>
+      <td>9107.255</td>
+      <td>14.3305</td>
+      <td>5113.3065</td>
+      <td>5254.4770</td>
     </tr>
     <tr>
       <th>2013-03-31</th>
-      <td>10676.970</td>
-      <td>1176.604</td>
-      <td>1304.888</td>
-      <td>2173.3200</td>
-      <td>18262.05</td>
-      <td>14.8040</td>
-      <td>6342.463</td>
-      <td>10113.0805</td>
+      <td>9876.2530</td>
+      <td>1000.378</td>
+      <td>1151.1720</td>
+      <td>1037.7785</td>
+      <td>9345.155</td>
+      <td>14.8205</td>
+      <td>5117.3000</td>
+      <td>5243.3455</td>
     </tr>
   </tbody>
 </table>
@@ -1170,35 +1251,35 @@ debug_df[0]
     <tr>
       <th>43447</th>
       <td>MS:65552</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>6266.1</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43448</th>
       <td>MS:3695</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>2393.96</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>3074.03</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43449</th>
       <td>MS:3698</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>34543.6</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43450</th>
       <td>MS:4502</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
-      <td>318569</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
+      <td>4837.31</td>
       <td>2013-03-31</td>
     </tr>
     <tr>
       <th>43451</th>
       <td>MS:2138</td>
-      <td>X(BPS1FD12)*X(IBNOSH)</td>
+      <td>X(BPS1FD12)~USD*X(IBNOSH)</td>
       <td>20133.9</td>
       <td>2013-03-31</td>
     </tr>
@@ -1223,7 +1304,7 @@ help(DSWS_Median_Index_Data)
         Services (DSWS) - for a series of indices of choice - defined in 'indices' - and returns three lists full of Pandas data-frames:
         1st - the raw output from the requests (with columns 'Instrument', 'Datatype', 'Value' and 'Dates');
         2nd - the monthly median from the raw output from the requests (with columns of the requested metrics and an index of dates);
-        3rd - the raw data pulled from the DSWS request (and where issues are most likely to lie)
+        3rd - the raw data pulled from the DSWS request (and where issues are most likely to lie).
         
         One could re-write this basing themselves off datetime objects, it would be equivalent; its code may look neater too.
         
