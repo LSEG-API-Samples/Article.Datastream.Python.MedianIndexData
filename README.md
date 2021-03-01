@@ -1,4 +1,7 @@
-# Datastream API (DSWS) Median Index Data
+# [Datastream API (DSWS) Median Index Data](https://developers.refinitiv.com/en/article-catalog/article/dsws-median-index-data)
+
+[This article comes from the Developer Community Portal, where you may find more such articles.](https://developers.refinitiv.com/en/article-catalog/article/dsws-median-index-data)
+
 
 In this article, we will create a Python function that will take the median measure of all (non 'NaN') values of a specific field for any index (or list of indices) of choice using Refinitiv's [DataStream](https://www.refinitiv.com/en/products/datastream-macroeconomic-analysis) Web Services (DSWS).
 
