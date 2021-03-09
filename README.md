@@ -16,7 +16,6 @@ In this article, we will create a Python function that will take the median meas
 
 ### Import Libraries <a class="anchor" id="ImportLibraries"></a>
 
-$$ \\ $$
 For full replication, note that the version of libraries used
 
 
@@ -28,7 +27,6 @@ print("This code is running on Python version " + sys.version[0:5])
     This code is running on Python version 3.7.7
     
 
-$$ \\ $$
 We need to gather our data. Since **Refinitiv's [DataStream](https://www.refinitiv.com/en/products/datastream-macroeconomic-analysis) Web Services (DSWS)** allows for access to ESG data covering nearly 70% of global market cap and over 400 metrics, naturally it is more than appropriate. We can access DSWS via the Python library "DatastreamDSWS" that can be installed simply by using $\textit{pip install}$.
 
 
