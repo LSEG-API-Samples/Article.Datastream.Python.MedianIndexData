@@ -381,15 +381,6 @@ df[df["Datatype"] == list_of_fields[0]][df["Value"] != 'NA']["Value"].median() #
 ```
 
     X(EVT1FD12)~USD
-    
-
-    C:\Users\U6082174.TEN\AppData\Roaming\Python\Python37\site-packages\ipykernel_launcher.py:2: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
-      
-    
-
-
-
-
     10479.682
 
 
@@ -532,11 +523,6 @@ test1, test1_df, test1_deb_df = DSWS_Median_Index_Data(
     LMSWRLD0113|L
     LMSWRLD0213|L
     LMSWRLD0313|L
-    
-
-    C:\Users\U6082174.TEN\AppData\Roaming\Python\Python37\site-packages\ipykernel_launcher.py:96: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
-    
-
     LS&PCOMP0113|L
     LS&PCOMP0213|L
     LS&PCOMP0313|L
