@@ -16,7 +16,7 @@ In this article, we will create a Python function that will take the median meas
 
 ### Import Libraries <a class="anchor" id="ImportLibraries"></a>
 
-
+$$ \\ $$
 For full replication, note that the version of libraries used
 
 
@@ -28,7 +28,7 @@ print("This code is running on Python version " + sys.version[0:5])
     This code is running on Python version 3.7.7
     
 
-
+$$ \\ $$
 We need to gather our data. Since **Refinitiv's [DataStream](https://www.refinitiv.com/en/products/datastream-macroeconomic-analysis) Web Services (DSWS)** allows for access to ESG data covering nearly 70% of global market cap and over 400 metrics, naturally it is more than appropriate. We can access DSWS via the Python library "DatastreamDSWS" that can be installed simply by using $\textit{pip install}$.
 
 
@@ -99,8 +99,8 @@ N.B.: X is the variable, so X(...)*X(...) means that we multiply them
 
 
 ```python
-list_of_fields = ['EVT1FD12', 'EBT1FD12', 'EBD1FD12', 'X(CPS1FD12)*X(IBNOSH)',
-                  'X(MV)~IBCUR', 'PEFD12', 'SAL1FD12', 'X(BPS1FD12)*X(IBNOSH)']
+list_of_fields = ['X(EVT1FD12)~USD', 'X(EBT1FD12)~USD', 'X(EBD1FD12)~USD', 'X(CPS1FD12)~USD*X(IBNOSH)',
+                  'X(MV)~USD', 'PEFD12', 'X(SAL1FD12)~USD', 'X(BPS1FD12)~USD*X(IBNOSH)']
 ```
 
 Now that we know the fields that we want to capture, we will ask for DSWS to collect such data for all constituents of the [MSCI World Index](https://product.datastream.com/browse/search.aspx?dsid=ZRQW955&AppGroup=DSAddin&q=MSWRLD%24&prev=99_MSCI+World). We need to do a few changed to the mnemonics/tickers used in the DSWS function ' ds.get_data ':
@@ -124,16 +124,29 @@ Now that we have stored the data we are looking for in the Python object 'df', w
 
 
 ```python
-# ' df["Datatype"] == "EVT1FD12" ' here sieves through ' df ' and only
+# ' df["Datatype"] == "X(EVT1FD12)~USD" ' here sieves through ' df ' and only
 #    returns data where what is in the outer most square brackets is
-#    true, i.e.: where values in the 'Datatype' column is 'EVT1FD12'.
-df[df["Datatype"] == "EVT1FD12"] # Note that ' "EVT1FD12" ' is the same as ' list_of_fields[0] '
+#    true, i.e.: where values in the 'Datatype' column is 'X(EVT1FD12)~USD'.
+df[df["Datatype"] == "X(EVT1FD12)~USD"] # Note that ' "X(EVT1FD12)~USD" ' is the same as ' list_of_fields[0] '
 ```
 
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -148,35 +161,35 @@ df[df["Datatype"] == "EVT1FD12"] # Note that ' "EVT1FD12" ' is the same as ' lis
     <tr>
       <th>1608</th>
       <td>MS:65955</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1609</th>
       <td>MS:1016</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>49373.9</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1610</th>
       <td>MS:388</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>52651.6</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1611</th>
       <td>MS:10</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>54133.7</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1612</th>
       <td>MS:96942</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>77434.2</td>
       <td>2013-08-31</td>
     </tr>
@@ -190,35 +203,35 @@ df[df["Datatype"] == "EVT1FD12"] # Note that ' "EVT1FD12" ' is the same as ' lis
     <tr>
       <th>3211</th>
       <td>MS:65552</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>11510.2</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3212</th>
       <td>MS:3695</td>
-      <td>EVT1FD12</td>
-      <td>6298.67</td>
+      <td>X(EVT1FD12)~USD</td>
+      <td>8305.29</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3213</th>
       <td>MS:3698</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3214</th>
       <td>MS:4502</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3215</th>
       <td>MS:2138</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>82122.3</td>
       <td>2013-08-31</td>
     </tr>
@@ -239,7 +252,20 @@ df[df["Instrument"] == df["Instrument"].unique()[0]] # ' [0] ' here is needed to
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -261,7 +287,7 @@ df[df["Instrument"] == df["Instrument"].unique()[0]] # ' [0] ' here is needed to
     <tr>
       <th>1608</th>
       <td>MS:65955</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
@@ -279,7 +305,20 @@ df[df["Datatype"] == list_of_fields[0]]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -294,35 +333,35 @@ df[df["Datatype"] == list_of_fields[0]]
     <tr>
       <th>1608</th>
       <td>MS:65955</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1609</th>
       <td>MS:1016</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>49373.9</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1610</th>
       <td>MS:388</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>52651.6</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1611</th>
       <td>MS:10</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>54133.7</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>1612</th>
       <td>MS:96942</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>77434.2</td>
       <td>2013-08-31</td>
     </tr>
@@ -336,35 +375,35 @@ df[df["Datatype"] == list_of_fields[0]]
     <tr>
       <th>3211</th>
       <td>MS:65552</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>11510.2</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3212</th>
       <td>MS:3695</td>
-      <td>EVT1FD12</td>
-      <td>6298.67</td>
+      <td>X(EVT1FD12)~USD</td>
+      <td>8305.29</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3213</th>
       <td>MS:3698</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3214</th>
       <td>MS:4502</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>NA</td>
       <td>2013-08-31</td>
     </tr>
     <tr>
       <th>3215</th>
       <td>MS:2138</td>
-      <td>EVT1FD12</td>
+      <td>X(EVT1FD12)~USD</td>
       <td>82122.3</td>
       <td>2013-08-31</td>
     </tr>
@@ -381,7 +420,7 @@ print(list_of_fields[0]) # Printing out the field of interest's name
 df[df["Datatype"] == list_of_fields[0]][df["Value"] != 'NA']["Value"].median() # ' .median() ' gets us - you guessed it - the median value.
 ```
 
-    EVT1FD12
+    X(EVT1FD12)~USD
     
 
     C:\Users\U6082174.TEN\AppData\Roaming\Python\Python37\site-packages\ipykernel_launcher.py:2: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
@@ -391,7 +430,7 @@ df[df["Datatype"] == list_of_fields[0]][df["Value"] != 'NA']["Value"].median() #
 
 
 
-    11409.6
+    10479.682
 
 
 
@@ -400,8 +439,8 @@ df[df["Datatype"] == list_of_fields[0]][df["Value"] != 'NA']["Value"].median() #
 
 ```python
 def DSWS_Median_Index_Data(indices = ["MSWRLD"],
-                           list_of_fields = ['EVT1FD12', 'EBT1FD12', 'EBD1FD12', 'X(CPS1FD12)*X(IBNOSH)',
-                                             'X(MV)~IBCUR', 'PEFD12', 'SAL1FD12', 'X(BPS1FD12)*X(IBNOSH)'], # Don't include non numerical fields like 'GDSCN'.
+                           list_of_fields = ['X(EVT1FD12)~USD', 'X(EBT1FD12)~USD', 'X(EBD1FD12)~USD', 'X(CPS1FD12)~USD*X(IBNOSH)',
+                                             'X(MV)~USD', 'PEFD12', 'X(SAL1FD12)~USD', 'X(BPS1FD12)~USD*X(IBNOSH)'], # Don't include non numerical fields like 'GDSCN'.
                           start = '2013-01-01',
                           end = '2021-01-31',
                           track_progress = False,
@@ -551,7 +590,20 @@ test1[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -655,7 +707,20 @@ test1_df[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -722,7 +787,20 @@ test1_df[1]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -789,7 +867,20 @@ test1_deb_df[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -893,7 +984,20 @@ DF[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -997,7 +1101,20 @@ _DF[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -1064,7 +1181,20 @@ debug_df[0]
 
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1169,7 +1299,7 @@ help(DSWS_Median_Index_Data)
 
     Help on function DSWS_Median_Index_Data in module __main__:
     
-    DSWS_Median_Index_Data(indices=['MSWRLD'], list_of_fields=['EVT1FD12', 'EBT1FD12', 'EBD1FD12', 'X(CPS1FD12)*X(IBNOSH)', 'X(MV)~IBCUR', 'PEFD12', 'SAL1FD12', 'X(BPS1FD12)*X(IBNOSH)'], start='2013-01-01', end='2021-01-31', track_progress=False, add_to_global_DF=False)
+    DSWS_Median_Index_Data(indices=['MSWRLD'], list_of_fields=['X(EVT1FD12)~USD', 'X(EBT1FD12)~USD', 'X(EBD1FD12)~USD', 'X(CPS1FD12)~USD*X(IBNOSH)', 'X(MV)~USD', 'PEFD12', 'X(SAL1FD12)~USD', 'X(BPS1FD12)~USD*X(IBNOSH)'], start='2013-01-01', end='2021-01-31', track_progress=False, add_to_global_DF=False)
         ' DSWS_Median_Index_Data ' requests data defined in ' list_of_fields ' from Datastream's API - DataStream Web
         Services (DSWS) - for a series of indices of choice - defined in 'indices' - and returns three lists full of Pandas data-frames:
         1st - the raw output from the requests (with columns 'Instrument', 'Datatype', 'Value' and 'Dates');
